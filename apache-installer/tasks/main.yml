@@ -1,0 +1,23 @@
+---
+# tasks file for apache-installer
+- hosts: all
+  tasks:
+     - copy: src=files/sshpass-1.05-9.1.i686.rpm dest=/tmp/sshpass-1.05-9.1.i686.rpm force=no
+       tags:
+         - install
+     - yum: name=/tmp/sshpass-1.05-9.1.i686.rpm state=present
+       tags:
+         - install
+     - unarchive: src=files/apache2latest.tar dest=/usr/local
+     - shell: cp /usr/local/apache2/conf.d/*.conf /usr/local/apache2.4.12/conf.d
+     - template: src=files/httpd_temp.conf dest=/usr/local/apache2.4.12/conf/httpd.conf force=yes
+     - template: src=files/httpd_final.conf dest=/usr/local/apache2.4.12/conf/httpd.conf force=yes
+       tags:
+          - finalize
+     - shell: /usr/local/apache2/bin/apachectl stop && /usr/local/apache2.4.12/bin/apachectl start
+       tags:
+          - finalize
+
+
+
+
