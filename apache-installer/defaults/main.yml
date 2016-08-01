@@ -1,2 +1,3 @@
 ---
 # defaults file for apache-installer
+http_port: 80

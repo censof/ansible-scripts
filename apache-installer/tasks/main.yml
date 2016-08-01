@@ -1,6 +1,8 @@
 ---
 # tasks file for apache-installer
 - hosts: all
+  vars:
+    - new_apache_path: /usr/local/apache2.4.12 
   tasks:
      - copy: src=files/sshpass-1.05-9.1.i686.rpm dest=/tmp/sshpass-1.05-9.1.i686.rpm force=no
        tags:
@@ -9,15 +11,11 @@
        tags:
          - install
      - unarchive: src=files/apache2latest.tar dest=/usr/local
-     - shell: cp /usr/local/apache2/conf.d/*.conf /usr/local/apache2.4.12/conf.d
-     - template: src=files/httpd_temp.conf dest=/usr/local/apache2.4.12/conf/httpd.conf force=yes
-     - template: src=files/httpd_final.conf dest=/usr/local/apache2.4.12/conf/httpd.conf force=yes
+     - shell: cp /usr/local/apache2/conf.d/*.conf {{ new_apache_path }}/conf.d
+     - template: src=files/httpd_temp.conf dest={{ new_apache_path }}/conf/httpd.conf force=yes
+     - template: src=files/httpd_final.conf dest={{ new_apache_path }}/conf/httpd.conf force=yes
        tags:
           - finalize
-     - shell: /usr/local/apache2/bin/apachectl stop && /usr/local/apache2.4.12/bin/apachectl start
+     - shell: /usr/local/apache2/bin/apachectl stop && {{ new_apache_path }}/bin/apachectl start
        tags:
           - finalize
-
-
-
-
