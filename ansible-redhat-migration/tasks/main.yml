@@ -1,0 +1,52 @@
+---
+# tasks file for ansible-redhat-migration
+- hosts: all
+
+  tasks:
+    - name: Create temporary directory
+      file: path=/temp/centos state=directory
+
+    - name: Download key
+      get_url:
+         url: http://mirror.centos.org/centos/6/os/x86_64/RPM-GPG-KEY-CentOS-6
+         dest: /temp/centos/RPM-GPG-KEY-CentOS-6
+
+    - name: Download the requisite files
+      get_url:
+         url: http://mirror.centos.org/centos/6/os/x86_64/Packages/{{ item }}
+         dest: /temp/centos/{{ item }}
+      with_items:
+        - python-urlgrabber-3.9.1-11.el6.noarch.rpm
+        - centos-release-6-8.el6.centos.12.3.x86_64.rpm
+        - centos-indexhtml-6-2.el6.centos.noarch.rpm
+        - yum-3.2.29-73.el6.centos.noarch.rpm
+        - yum-plugin-fastestmirror-1.1.30-37.el6.noarch.rpm
+
+    - name: Import Key for Centos
+      shell: rpm --import /temp/centos/RPM-GPG-KEY-CentOS-6
+      ignore_errors: yes
+
+    - name: Uninstall redhat stuff
+      yum: name={{ item }} state=absent
+      with_items:
+        - rhnlib
+        - abrt-plugin-bugzilla
+        - 'redhat-release-notes*'
+
+    - name: Uninstall the rest of redhat stuff
+      shell: rpm -e --nodeps redhat-release-server-6Server redhat-indexhtml
+      ignore_errors: yes
+
+    - name: Clean subsciption-manager
+      shell: subscription-manager clean
+      ignore_errors: yes
+
+    - name: Uninstall subscription manager
+      yum: name=subscription-manager state=absent
+
+    - name: Install centos packages
+      shell: cd /temp/centos && rpm -Uvh --force *.rpm
+
+    - name: Clean all
+      shell: yum clean all
+      ignore_errors: yes
