@@ -50,3 +50,6 @@
     - name: Clean all
       shell: yum clean all
       ignore_errors: yes
+
+    - name: upgrade all packages
+      yum: name=* state=latest
