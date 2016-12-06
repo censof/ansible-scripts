@@ -1,0 +1,13 @@
+file:
+  /etc/php.ini:
+    exists: true
+    mode: "0644"
+    filetype: file
+    contains: []
+package:
+  httpd:
+    installed: true
+service:
+  httpd:
+    enabled: true
+    running: true
