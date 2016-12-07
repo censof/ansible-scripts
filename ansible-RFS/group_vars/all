@@ -1,38 +1,20 @@
 php_version: "php5"
 
+database_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
+database_hostname: 52.62.120.215
+database_service: u_century
+database_protocol: onsoctcp
+database_servername: unikorn_century
+database_port: 1530
+
 supportlive_description: support Database
-supportlive_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
 supportlive_database: supportrfstest
-supportlive_hostname: 52.62.120.215
-supportlive_service: u_century
-supportlive_protocol: onsoctcp
-supportlive_servername: unikorn_century
-supportlive_port: 1530
 
 supporttest_description: support Database Test
-supporttest_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
 supporttest_database: supportrfsobb
-supporttest_hostname: 52.62.120.215
-supporttest_service: u_century
-supporttest_protocol: onsoctcp
-supporttest_servername: unikorn_century
-supporttest_port: 1530
 
 supportobb_description: support Database OBB
-supportobb_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
 supportobb_database: supportrfsobb
-supportobb_hostname: 52.62.120.215
-supportobb_service: u_century
-supportobb_protocol: onsoctcp
-supportobb_servername: unikorn_century
-supportobb_port: 1530
 
 supporttmx_description: support Database T_Melmax 
-supporttmx_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
 supporttmx_database: supportrfstmx
-supporttmx_hostname: 52.62.120.215
-supporttmx_service: u_century
-supporttmx_protocol: onsoctcp
-supporttmx_servername: unikorn_century
-supporttmx_port: 1530
-

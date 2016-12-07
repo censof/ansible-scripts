@@ -4,6 +4,13 @@ file:
     mode: "0644"
     filetype: file
     contains: []
+
+  /etc/odbc.ini:
+    exists: true
+    mode: "0644"
+    filetype: file
+    contains: []
+
 package:
   httpd:
     installed: true
