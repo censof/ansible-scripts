@@ -33,15 +33,18 @@
 - name: Copy over php.ini
   template: src=templates/php.ini dest=/etc/php.ini
 
+- name: Copy over odbc.ini 
+  template: src=templates/odbc.j2 dest=/etc/odbc.ini
+
 - name: Install goss
   shell: 'curl -fsSL https://goss.rocks/install | sh'
   args:
     creates: "/usr/local/bin/goss"
 
 - name: Place goss file
-  template: src=templates/goss.json dest=/goss.json
- # template: src=templates/goss.json dest=~/goss.json
+#  template: src=templates/goss.json dest=/goss.json
+  template: src=templates/goss.yaml dest=./goss.yaml
 
 - name: validate goss
-  command: 'goss --gossfile \"/goss.json\" validate --format documentation'
+  command: 'goss --gossfile "./goss.yaml" validate --format documentation'
 

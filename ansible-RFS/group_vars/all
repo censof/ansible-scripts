@@ -1,1 +1,20 @@
 php_version: "php5"
+
+database_driver: /opt/IBM/csdk/lib/cli/iclis09b.so
+database_hostname: 52.62.120.215
+database_service: u_century
+database_protocol: onsoctcp
+database_servername: unikorn_century
+database_port: 1530
+
+supportlive_description: support Database
+supportlive_database: supportrfstest
+
+supporttest_description: support Database Test
+supporttest_database: supportrfsobb
+
+supportobb_description: support Database OBB
+supportobb_database: supportrfsobb
+
+supporttmx_description: support Database T_Melmax 
+supporttmx_database: supportrfstmx
