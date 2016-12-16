@@ -1,0 +1,7 @@
+---
+# vars file for ansible-rsync
+
+main_folder: "/foldertest/"
+target_folder: "/folder3"
+
+

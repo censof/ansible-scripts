@@ -1,0 +1,5 @@
+---
+# handlers file for ansible-rsync
+- name: Start and enable crontabs
+  service: name=crond state=started enable=yes
+
