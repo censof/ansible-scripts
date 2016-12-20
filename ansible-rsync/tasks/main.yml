@@ -1,0 +1,44 @@
+---
+# tasks file for ansible-rsync
+
+- name: Install rsync 
+  package: name="{{ item }}" state=present update_cache=yes
+  with_items:
+     - crontabs
+     - rsync
+#  notify: Start and enable crontabs
+
+#  yum: name=rsync state=present update_cache=yes
+
+- name: Generate public sshkeys
+  user: name=root generate_ssh_key=yes
+#  command: ssh-keygen -N '' {{ ansible_env.HOME }}/.ssh/id_rsa
+
+- name: Add ssh key to target host
+  command: cat "{{ ansible_env.HOME }}"/.ssh/id_rsa.pub
+  register: ssh_keys
+  tags: ssh_gen
+
+- name: check keys
+  debug: msg="{{ ssh_keys.stdout }}"
+  tags: ssh_gen
+
+- name: deploy keys on all servers
+  authorized_key: user=root key="{{ item[0] }}"
+  delegate_to: "{{ item[1] }}"
+  with_nested:
+     - ssh_keys.stdout
+     - "{{ groups['all'] }}"
+  tags: ssh_gen
+
+- name: Add rsync cronjob every 2 minutes
+  cron: name="cronjob for rsync" minute=*/2 user=root job="rsync -rvhe ssh --delete {{ main_folder }} root@172.17.0.2:{{ target_folder }} &> /rsync_run.log"
+  when: inventory_hostname in groups['main']
+
+- name: Start cond service
+  command: "{{ item }}"
+  with_items:
+      - systemctl enable crond
+      - systemctl start crond  
+
+

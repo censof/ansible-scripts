@@ -1,0 +1,11 @@
+---
+#- hosts: target
+#  become: yes
+#  roles: 
+#    - { role: ansible-ssh-keygen }
+
+- hosts: all
+  become: yes
+  roles: 
+    - { role: ansible-rsync }
+
