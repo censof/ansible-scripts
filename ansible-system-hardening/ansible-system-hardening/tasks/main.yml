@@ -23,7 +23,7 @@
   notify: restart sshd
 
 - name: Copy over systctl.conf
-  template: src=templates/systctl.conf dest=/etc/systcl.conf
+  template: src=templates/sysctl.conf dest=/etc/sysctl.conf
 
 - name: copy over fail2ban jail.conf
   template: src=templates/jail.conf dest=/etc/fail2ban/jail.conf
@@ -33,8 +33,11 @@
   notify: start fail2ban
   
 - name: create rules for IPtables
-  template: src=templates/iptables_rules.sh dest=/iptables_rules.sh
-
+  template: src=templates/iptables_rules.sh dest=/opt/iptables_rules.sh mode="u+rwx"
+  notify: start iptables
+  
 - name: running iptable_rules.sh
-  command: "./iptables_rules.sh" chdir=/
+#  command: ./iptables_rules.sh chdir=/opt/
+  command: sh /opt/iptables_rules.sh
+  notify: restart iptables
 
