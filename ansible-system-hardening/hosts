@@ -1,0 +1,2 @@
+[docker]
+172.17.0.2 ansible_user=root ansible_port=22 ansible_private_key_file="{{ lookup('env','HOME') }} "/.ssh/id_rsa
