@@ -1,0 +1,2 @@
+[server66]
+192.168.30.66 ansible_port=22 ansible_user=informix ansible_private_key_file="{{ lookup('env', 'HOME') }}"/.ssh/id_rsa 

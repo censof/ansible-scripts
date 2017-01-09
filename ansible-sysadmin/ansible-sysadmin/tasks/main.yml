@@ -1,0 +1,24 @@
+---
+# tasks file for ansible-sysadmin
+- name: Install sysstat
+  yum: name=sysstat state=latest update_cache=yes 
+  ignore_errors: yes
+
+- name: view virtual memory vmstat 5 second ,10 updates
+  command: vmstat 5 10
+
+- name: display i/o statistics,execute 2 seconds 20 times
+  command: iostat 2 20
+  ignore_errors: yes
+
+- name: Check space
+  command: df -h
+
+- name: IBM DSA LOG
+  command: /ibm_utl_dsa_dsyte1d-9.61_portable_rhel_x86-64.bin -html /tmp/IBM-log -v -x
+  ignore_errors: yes
+
+- name: view cronjob
+  command: crontab -l
+  ignore_errors: yes
+

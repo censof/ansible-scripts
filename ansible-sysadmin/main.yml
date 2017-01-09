@@ -1,0 +1,14 @@
+---
+- name: System Query
+  hosts: all
+  become: yes
+  become_user: informix
+  roles:
+    - { role: ansible-sysadmin } 
+
+- name: Informix Query
+  hosts: all
+  become: yes
+  become_user: informix
+  roles:
+    - { role: ansible-sysadmin-informix } 

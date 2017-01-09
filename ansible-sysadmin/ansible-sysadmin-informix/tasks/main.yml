@@ -1,0 +1,24 @@
+---
+# tasks file for ansible-sysadmin-informix
+- name: whoami
+  command: whoami
+
+- name: informix onstat
+  command:  /opt/IBM/informix/bin/{{ item }} 
+  ignore_errors: yes
+  register: informix_results
+  with_items: 
+     - onstat -
+     - onstat -p
+     - onstat -a
+     - onstat -d
+     - onstat -m
+
+- name: Save results in file
+  local_action: copy content="{{ informix_results }}" dest="{{lookup('env','HOME')}}/Documents/test_results/{{ ansible_date_time.date}}--{{ ansible_date_time.time}}.log"
+  ignore_errors: yes
+
+- name: get in informix 
+  shell: yes "" | echo 'select c.dbsnum, d.name,sum(chksize) size, sum(nfree) pages, round((sum(chksize) - sum(nfree)) / 512,2) MB_used,  round(sum(nfree) / 512,2) MB_free, round((sum(c.nfree) / sum(c.chksize) * 100),2) percent_free from syschunks c, sysdbspaces d where c.dbsnum = d.dbsnum group by 1,2 order by 1;' | dbaccess sysmaster 
+
+
