@@ -1,0 +1,13 @@
+---
+# handlers file for ansible-system-hardening
+- name: start fail2ban
+  service: name=fail2ban state=started
+
+- name: restart sshd
+  service: name=sshd state=restarted
+
+- name: start iptables
+  service: name=iptables state=started
+
+- name: restart iptables
+  service: name=iptables state=restarted

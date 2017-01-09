@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-nginx-hardening
+
+# openssl_self_signed:
+#   - name: 'foobar.com'
+#     domains: ['*.foobar.com', 'foobar.com']
+#     country: 'DE'
+#     state: 'Bavaria'
+#     city: 'Munich'
+#     organization: 'Foo Bar'
+#     unit: ''
+#     email: 'foo@bar.com'
+#     days: 3650
