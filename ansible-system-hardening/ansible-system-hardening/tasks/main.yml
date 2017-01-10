@@ -3,11 +3,11 @@
 - name: install package needed 
   package: name={{ item }} state=present update_cache=yes
   with_items:
-     - yum-plugin-security
-     - yum-utils
-     - fail2ban
+#     - yum-plugin-security
+#     - yum-utils
+#     - fail2ban
      - lynis
-     - arpwatch
+#     - arpwatch
 
 #- name: Check and install security updates
 #  template: src= dest=
@@ -25,12 +25,12 @@
 - name: Copy over systctl.conf
   template: src=templates/sysctl.conf dest=/etc/sysctl.conf
 
-- name: copy over fail2ban jail.conf
-  template: src=templates/jail.conf dest=/etc/fail2ban/jail.conf
+#- name: copy over fail2ban jail.conf
+#  template: src=templates/jail.conf dest=/etc/fail2ban/jail.conf
 
-- name: add fail2ban rules in jail.local
-  template: src=templates/jail.local dest=/etc/fail2ban/jail.local
-  notify: start fail2ban
+#- name: add fail2ban rules in jail.local
+#  template: src=templates/jail.local dest=/etc/fail2ban/jail.local
+#  notify: start fail2ban
   
 - name: create rules for IPtables
   template: src=templates/iptables_rules.sh dest=/opt/iptables_rules.sh mode="u+rwx"
