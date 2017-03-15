@@ -52,7 +52,7 @@
   unarchive: src="https://pecl.php.net/get/{{ pdo_informix }}.tgz" dest=/opt/ remote_src=yes copy=no
 
 - name: change dir to pdo_informix
-  shell: chdir=/opt/{{ pdo_informix }} ls
+  shell: chdir=/opt/"{{ pdo_informix }}" ls
   
 - name: run phpize
   command: "{{ item }} chdir=/opt/{{ pdo_informix }}"
@@ -62,11 +62,3 @@
     - make
     - make install
 
-#- name: run ./configure
-#  command: ./configure --with-pdo-informix=/opt/IBM/informix
-
-#- name: run make
-#  command: make
-
-#- name:  run make install
-#  command: make install

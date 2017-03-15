@@ -1,0 +1,4 @@
+---
+# all file for ansible-informixclient-csdk
+
+pdo_informix: PDO_INFORMIX-1.3.1
