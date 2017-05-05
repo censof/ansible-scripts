@@ -51,8 +51,8 @@
 - name: extract pdo_informix
   unarchive: src="https://pecl.php.net/get/{{ pdo_informix }}.tgz" dest=/opt/ remote_src=yes copy=no
 
-- name: change dir to pdo_informix
-  shell: chdir=/opt/"{{ pdo_informix }}" ls
+#- name: change dir to pdo_informix
+#  shell: chdir=/opt/"{{ pdo_informix }}" ls
   
 - name: run phpize
   command: "{{ item }} chdir=/opt/{{ pdo_informix }}"
